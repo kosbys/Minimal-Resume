@@ -11,7 +11,7 @@ export default function FormWork() {
           name={"company_name"}
           type={"text"}
           label={"Company Name"}
-          value={"value"}
+          value={""}
           updateFunction={() => {}}></FormInput>
         <FormInput name={"role"} type={"text"} label={"Role"}></FormInput>
         <FormInput
@@ -19,12 +19,12 @@ export default function FormWork() {
           type={"text"}
           label={"Description"}></FormInput>
         <FormInput
-          name={"work_begin"}
-          type={"text"}
+          name={"work_date_begin"}
+          type={"date"}
           label={"Start Date"}></FormInput>
         <FormInput
-          name={"work_end"}
-          type={"text"}
+          name={"work_date_end"}
+          type={"date"}
           label={"End Date"}></FormInput>
         <button className="btn btn-success" type="button">
           Add

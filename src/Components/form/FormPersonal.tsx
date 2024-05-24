@@ -1,11 +1,7 @@
+import { person } from "../../helpers/types";
 import FormInput from "./FormInput";
-import { person } from "../../types";
 
 export default function FormPersonal({ name, email, phone, change }: person) {
-  if (change === undefined) {
-    return;
-  }
-
   return (
     <div className="flex flex-col basis-1 grow justify-center items-center ">
       <h2 className="text-left">Personal Details</h2>

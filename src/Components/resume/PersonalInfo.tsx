@@ -1,4 +1,4 @@
-import { person } from "../../types";
+import { person } from "../../helpers/types";
 
 export default function PersonalInfo({ name, email, phone }: person) {
   return (

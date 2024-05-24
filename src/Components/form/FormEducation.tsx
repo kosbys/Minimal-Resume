@@ -1,26 +1,46 @@
 import FormInput from "./FormInput";
+import { education } from "../../helpers/types";
 
-export default function FormEducation() {
+export default function FormEducation({
+  schoolName,
+  degree,
+  studyBegin,
+  studyEnd,
+  addEducation,
+  change,
+}: education) {
   return (
     <div className="flex flex-col basis-1 grow justify-center items-center ">
       <h2 className="text-left">Education</h2>
       <form
+        onSubmit={addEducation}
         noValidate
         className="flex flex-col justify-center items-center gap-2">
         <FormInput
-          name={"school_name"}
+          updateFunction={change}
+          name={"schoolName"}
           type={"text"}
-          label={"School Name"}></FormInput>
-        <FormInput name={"degree"} type={"text"} label={"Degree"}></FormInput>
+          label={"School Name"}
+          value={schoolName ?? ""}></FormInput>
         <FormInput
-          name={"study_date_begin"}
+          updateFunction={change}
+          name={"degree"}
           type={"text"}
-          label={"Start Date"}></FormInput>
+          label={"Degree"}
+          value={degree ?? ""}></FormInput>
         <FormInput
-          name={"study_date_end"}
-          type={"text"}
-          label={"End Date"}></FormInput>
-        <button className="btn btn-success" type="button">
+          updateFunction={change}
+          name={"studyBegin"}
+          type={"date"}
+          label={"Start Date"}
+          value={studyBegin ?? ""}></FormInput>
+        <FormInput
+          updateFunction={change}
+          name={"studyEnd"}
+          type={"date"}
+          label={"End Date"}
+          value={studyEnd ?? ""}></FormInput>
+        <button className="btn btn-success" type="submit">
           Add
         </button>
       </form>

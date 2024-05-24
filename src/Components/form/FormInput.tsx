@@ -1,4 +1,4 @@
-import { InputProps } from "../../types";
+import { InputProps } from "../../helpers/types";
 
 export default function FormInput({
   name,
