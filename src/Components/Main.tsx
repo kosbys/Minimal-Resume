@@ -7,8 +7,13 @@ import PersonalInfo from "./resume/PersonalInfo";
 import WorkInfo from "./resume/WorkInfo";
 import { person, education } from "../helpers/types";
 import { validateEducation } from "../helpers/helpers";
+import Modal from "./Modal";
 
 export default function Main() {
+  const [modalData, setModalData] = useState({
+    title: "",
+    body: "",
+  });
   const addEducation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -16,7 +21,6 @@ export default function Main() {
     const inputs = form.children;
     const edu: Record<string, string> = {};
 
-    // TODO: Validate every input
     [...inputs].forEach((element) => {
       if (element.id != "") {
         const eduField = element.id.replace("Wrap", "");
@@ -33,6 +37,9 @@ export default function Main() {
         educationArray: [...educations.educationArray, edu],
       });
       form.reset();
+    } else {
+      setModalData({ title: "A", body: "B" });
+      (document.querySelector("#modal") as HTMLDialogElement).showModal();
     }
   };
 
@@ -68,6 +75,7 @@ export default function Main() {
           phone={personData.phone}></PersonalInfo>
         <EducationInfo></EducationInfo>
         <WorkInfo></WorkInfo>
+        <Modal title={modalData.title} body={modalData.body} id="modal"></Modal>
       </div>
     </>
   );

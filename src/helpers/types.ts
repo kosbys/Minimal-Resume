@@ -1,5 +1,11 @@
 import { ChangeEvent } from "react";
 
+type modalProps = {
+  title: string;
+  body: string;
+  id: string;
+};
+
 type person = {
   name: string;
   email: string;
@@ -28,4 +34,11 @@ type InputProps = {
   updateFunction?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type { person, education, educations, InputProps, formSubmit };
+export type {
+  person,
+  education,
+  educations,
+  InputProps,
+  formSubmit,
+  modalProps,
+};
