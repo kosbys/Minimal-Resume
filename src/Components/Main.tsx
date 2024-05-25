@@ -6,14 +6,17 @@ import EducationInfo from "./resume/EducationInfo";
 import PersonalInfo from "./resume/PersonalInfo";
 import WorkInfo from "./resume/WorkInfo";
 import { person, education } from "../helpers/types";
+import { validateEducation } from "../helpers/helpers";
 
 export default function Main() {
   const addEducation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const inputs = (e.target as Element).children;
+    const form = e.target as HTMLFormElement;
+
+    const inputs = form.children;
     const edu: Record<string, string> = {};
 
-    // Validate every input
+    // TODO: Validate every input
     [...inputs].forEach((element) => {
       if (element.id != "") {
         const eduField = element.id.replace("Wrap", "");
@@ -21,14 +24,16 @@ export default function Main() {
           `#${element.id.replace("Wrap", "Input")}`
         );
 
-        if (input?.value) {
-          edu[eduField] = input.value;
-        }
+        edu[eduField] = input?.value || "";
       }
     });
-    setEducation({
-      educationArray: [...educations.educationArray, edu],
-    });
+
+    if (validateEducation(edu as education)) {
+      setEducation({
+        educationArray: [...educations.educationArray, edu],
+      });
+      form.reset();
+    }
   };
 
   const changePerson = (e: React.ChangeEvent<HTMLInputElement>) => {
