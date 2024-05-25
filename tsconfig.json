@@ -20,6 +20,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/Components/form", "src/Components/resume"],
+  "include": [
+    "src",
+    "src/Components/form",
+    "src/Components/resume",
+    "src/helpers"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

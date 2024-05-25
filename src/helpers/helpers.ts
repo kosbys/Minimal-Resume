@@ -9,4 +9,6 @@ function changeData(
   setData({ ...data, [field]: e.target.value });
 }
 
-export { changeData };
+function validateEducation() {}
+
+export { changeData, validateEducation };

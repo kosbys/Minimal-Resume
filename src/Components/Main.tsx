@@ -5,22 +5,30 @@ import FormWork from "./form/FormWork";
 import EducationInfo from "./resume/EducationInfo";
 import PersonalInfo from "./resume/PersonalInfo";
 import WorkInfo from "./resume/WorkInfo";
-import { person, education, educations } from "../helpers/types";
+import { person, education } from "../helpers/types";
 
 export default function Main() {
   const addEducation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
+    const inputs = (e.target as Element).children;
+    const edu: Record<string, string> = {};
 
-    // setEducation((previousEducations) => [
-    //   ...previousEducations,
-    //   {
-    //     schoolName: "A",
-    //     degree: "a",
-    //     studyBegin: "a",
-    //     studyEnd: "a",
-    //   },
-    // ])
+    // Validate every input
+    [...inputs].forEach((element) => {
+      if (element.id != "") {
+        const eduField = element.id.replace("Wrap", "");
+        const input: HTMLInputElement | null = document.querySelector(
+          `#${element.id.replace("Wrap", "Input")}`
+        );
+
+        if (input?.value) {
+          edu[eduField] = input.value;
+        }
+      }
+    });
+    setEducation({
+      educationArray: [...educations.educationArray, edu],
+    });
   };
 
   const changePerson = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,31 +36,13 @@ export default function Main() {
     setPersonData({ ...personData, [field]: e.target.value });
   };
 
-  const changeEducation = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const field = e.target.name;
-    setEducation({
-      educationArray: educations.educationArray,
-      currentEducation: {
-        ...educations.currentEducation,
-        [field]: e.target.value,
-      },
-    });
-  };
-
   const [personData, setPersonData] = useState<person>({
     name: "John Doe",
     email: "johndoe@example.com",
     phone: "505-646-7077",
   });
-  const [educations, setEducation] = useState<educations>({
+  const [educations, setEducation] = useState({
     educationArray: [] as education[],
-    currentEducation: {
-      schoolName: "",
-      degree: "",
-      studyBegin: "",
-      studyEnd: "",
-      change: changeEducation,
-    },
   });
 
   return (
@@ -63,13 +53,7 @@ export default function Main() {
           email={personData.email}
           phone={personData.phone}
           change={changePerson}></FormPersonal>
-        <FormEducation
-          schoolName={educations.currentEducation.schoolName}
-          degree={educations.currentEducation.degree}
-          studyBegin={educations.currentEducation.studyBegin}
-          studyEnd={educations.currentEducation.studyEnd}
-          change={changeEducation}
-          addEducation={addEducation}></FormEducation>
+        <FormEducation submit={addEducation}></FormEducation>
         <FormWork></FormWork>
       </div>
       <div className="flex flex-col">
