@@ -1,4 +1,4 @@
-import { education, person } from "./types";
+import { education, person, work } from "./types";
 
 const dateRegex: RegExp = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
 
@@ -11,12 +11,13 @@ function changeData(
   setData({ ...data, [field]: e.target.value });
 }
 
-function validateEducation(edu: education): boolean {
-  for (const [k, v] of Object.entries(edu)) {
+function validateForm(query: education | work): boolean {
+  const dates = ["studyBegin", "studyEnd", "workBegin", "workEnd"];
+  for (const [k, v] of Object.entries(query)) {
     if (v === "") {
       return false;
     }
-    if (k === "studyBegin" || k === "studyEnd") {
+    if (dates.includes(k)) {
       if (!dateRegex.test(v)) {
         return false;
       }
@@ -26,4 +27,4 @@ function validateEducation(edu: education): boolean {
   return true;
 }
 
-export { changeData, validateEducation };
+export { changeData, validateForm };

@@ -6,6 +6,7 @@ export default function FormEducation({ submit }: formSubmit) {
     <div className="flex flex-col basis-1 grow justify-center items-center ">
       <h2 className="text-left">Education</h2>
       <form
+        id="educationForm"
         onSubmit={submit}
         noValidate
         className="flex flex-col justify-center items-center gap-2">

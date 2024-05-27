@@ -1,19 +1,11 @@
 import { ChangeEvent } from "react";
 
-type modalProps = {
-  title: string;
-  body: string;
-  id: string;
-};
-
 type person = {
   name: string;
   email: string;
   phone: string;
   change?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
-
-type educations = { educationArray: education[]; currentEducation: education };
 
 type education = {
   schoolName?: string;
@@ -22,8 +14,21 @@ type education = {
   studyEnd?: string;
 };
 
+type work = {
+  companyName?: string;
+  role?: string;
+  description?: string;
+  workBegin?: string;
+  workEnd?: string;
+};
+
 type formSubmit = {
   submit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+type modalProps = {
+  title: string;
+  body: string;
 };
 
 type InputProps = {
@@ -34,11 +39,4 @@ type InputProps = {
   updateFunction?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type {
-  person,
-  education,
-  educations,
-  InputProps,
-  formSubmit,
-  modalProps,
-};
+export type { person, education, work, InputProps, formSubmit, modalProps };

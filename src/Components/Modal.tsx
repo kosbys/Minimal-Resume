@@ -1,8 +1,8 @@
 import { modalProps } from "../helpers/types";
 
-export default function Modal({ title, body, id }: modalProps) {
+export default function Modal({ title, body }: modalProps) {
   return (
-    <dialog id="modal" className="modal" itemID={id}>
+    <dialog id="modal" className="modal" itemID="modal">
       <div className="modal-box">
         <h3 className="font-bold text-lg">{title}</h3>
         <p className="py-4">{body}</p>
