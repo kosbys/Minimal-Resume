@@ -1,6 +1,6 @@
 import { education, person, work } from "./types";
 
-const dateRegex: RegExp = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+const dateRegex: RegExp = /[0-9]/;
 
 function changeData(
   e: React.ChangeEvent<HTMLInputElement>,
@@ -13,12 +13,12 @@ function changeData(
 
 function validateForm(query: education | work): boolean {
   const dates = ["studyBegin", "studyEnd", "workBegin", "workEnd"];
-  for (const [k, v] of Object.entries(query)) {
-    if (v === "") {
+  for (const [key, value] of Object.entries(query)) {
+    if (value === "") {
       return false;
     }
-    if (dates.includes(k)) {
-      if (!dateRegex.test(v)) {
+    if (dates.includes(key)) {
+      if (!dateRegex.test(value)) {
         return false;
       }
     }

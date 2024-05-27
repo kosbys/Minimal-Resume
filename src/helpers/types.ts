@@ -39,4 +39,17 @@ type InputProps = {
   updateFunction?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type { person, education, work, InputProps, formSubmit, modalProps };
+type resumeProps = {
+  educationArray?: education[];
+  workArray?: work[];
+};
+
+export type {
+  person,
+  education,
+  work,
+  InputProps,
+  formSubmit,
+  modalProps,
+  resumeProps,
+};

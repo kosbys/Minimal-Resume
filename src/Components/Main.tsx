@@ -9,6 +9,7 @@ import { person, education, work } from "../helpers/types";
 import { validateForm } from "../helpers/helpers";
 import Modal from "./Modal";
 
+// TODO: SHOW UP WORKS AND EDUCATIONS IN THE DOM RESUME
 export default function Main() {
   const [educationHistory, setEducationHistory] = useState({
     educationArray: [] as education[],
@@ -79,8 +80,9 @@ export default function Main() {
           name={personData.name}
           email={personData.email}
           phone={personData.phone}></PersonalInfo>
-        <EducationInfo></EducationInfo>
-        <WorkInfo></WorkInfo>
+        <EducationInfo
+          educationArray={educationHistory.educationArray}></EducationInfo>
+        <WorkInfo workArray={workHistory.workArray}></WorkInfo>
         <Modal title={"Error"} body={"Don't leave any empty fields"}></Modal>
       </div>
     </>
