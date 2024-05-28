@@ -8,8 +8,9 @@ import WorkInfo from "./resume/WorkInfo";
 import { person, education, work } from "../helpers/types";
 import { validateForm } from "../helpers/helpers";
 import Modal from "./Modal";
+import ResumeButtons from "./resume/ResumeButtons";
 
-// TODO: SHOW UP WORKS AND EDUCATIONS IN THE DOM RESUME
+// todo add edit and delete
 export default function Main() {
   const [educationHistory, setEducationHistory] = useState({
     educationArray: [] as education[],
@@ -81,8 +82,44 @@ export default function Main() {
           email={personData.email}
           phone={personData.phone}></PersonalInfo>
         <EducationInfo
-          educationArray={educationHistory.educationArray}></EducationInfo>
-        <WorkInfo workArray={workHistory.workArray}></WorkInfo>
+          list={educationHistory.educationArray?.map((edu, eduID) => {
+            return (
+              <div
+                className="flex flex-col"
+                id={`educationN${eduID}`}
+                key={crypto.randomUUID()}>
+                <h1 className="text-3xl">{edu.schoolName}</h1>
+                <div className="flex justify-center gap-6">
+                  <div className="text-xl">{edu.degree}</div>
+                  <div className="text-xl">
+                    {edu.studyBegin}-{edu.studyEnd}
+                  </div>
+                  <ResumeButtons id={String(eduID)}></ResumeButtons>
+                </div>
+              </div>
+            );
+          })}></EducationInfo>
+        <WorkInfo
+          list={workHistory.workArray?.map((work, workID) => {
+            return (
+              <div
+                className="flex flex-col"
+                id={`workN${workID}`}
+                key={crypto.randomUUID()}>
+                <div className="flex flex-col">
+                  <h1 className="text-3xl">{work.role}</h1>
+                  <div className="flex justify-center gap-6">
+                    <div className="text-xl">{work.companyName}</div>
+                    <div className="text-xl">{work.description}</div>
+                    <div className="text-xl">
+                      {work.workBegin}-{work.workEnd}
+                    </div>
+                    <ResumeButtons id={String(workID)}></ResumeButtons>
+                  </div>
+                </div>
+              </div>
+            );
+          })}></WorkInfo>
         <Modal title={"Error"} body={"Don't leave any empty fields"}></Modal>
       </div>
     </>

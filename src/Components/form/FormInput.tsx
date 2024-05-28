@@ -6,6 +6,7 @@ export default function FormInput({
   type,
   label,
   updateFunction,
+  value,
 }: InputProps) {
   if (type === "date") {
     const years = yearOptions();
@@ -14,9 +15,10 @@ export default function FormInput({
       <div className="flex flex-col" id={`${name}Wrap`}>
         <label htmlFor={name}>{label}</label>
         <select
-          id={`${name}input`}
+          id={`${name}Input`}
           name={name}
-          className="select select-primary">
+          className="select select-primary"
+          value={value}>
           {years}
         </select>
       </div>
@@ -30,6 +32,7 @@ export default function FormInput({
         onChange={updateFunction}
         type={type}
         name={name}
+        value={value}
         className="input input-bordered input-primary rounded-lg"></input>
     </div>
   );

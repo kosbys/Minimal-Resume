@@ -1,6 +1,6 @@
 import { education, person, work } from "./types";
 
-const dateRegex: RegExp = /[0-9]/;
+const dateRegex: RegExp = /[0-9]+/;
 
 function changeData(
   e: React.ChangeEvent<HTMLInputElement>,

@@ -29,6 +29,8 @@ type formSubmit = {
 type modalProps = {
   title: string;
   body: string;
+  editWork?: work;
+  editEducation?: education;
 };
 
 type InputProps = {
@@ -39,9 +41,12 @@ type InputProps = {
   updateFunction?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-type resumeProps = {
-  educationArray?: education[];
-  workArray?: work[];
+type elements = {
+  list: JSX.Element[];
+};
+
+type buttonProps = {
+  id: string;
 };
 
 export type {
@@ -51,5 +56,6 @@ export type {
   InputProps,
   formSubmit,
   modalProps,
-  resumeProps,
+  elements,
+  buttonProps,
 };
