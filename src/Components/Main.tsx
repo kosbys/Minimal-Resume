@@ -5,12 +5,11 @@ import FormWork from "./form/FormWork";
 import EducationInfo from "./resume/EducationInfo";
 import PersonalInfo from "./resume/PersonalInfo";
 import WorkInfo from "./resume/WorkInfo";
-import { person, education, work } from "../helpers/types";
+import { person, education, work, modalProps } from "../helpers/types";
 import { validateForm } from "../helpers/helpers";
 import Modal from "./Modal";
 import ResumeButtons from "./resume/ResumeButtons";
 
-// todo add edit and delete
 export default function Main() {
   const [educationHistory, setEducationHistory] = useState({
     educationArray: [] as education[],
@@ -23,6 +22,90 @@ export default function Main() {
     email: "johndoe@example.com",
     phone: "505-646-7077",
   });
+  const [modalData, setModalData] = useState({
+    edit: { editMode: false, type: "", id: "", item: {} },
+    title: "ERROR",
+    body: "Remember to fill all fields",
+    saveFn: null,
+  } as modalProps);
+
+  const editEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const saveEvent = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const inputs = form.children;
+      const editedForm: Record<string, string> = {};
+
+      [...inputs].forEach((el: Element) => {
+        if (el.children[1] as HTMLInputElement) {
+          const input = el.children[1] as HTMLInputElement;
+        }
+      });
+
+      switch (modalData.edit.type) {
+        case "education": {
+          const newEducations = educationHistory.educationArray.map(
+            (edu, i) => {
+              if (i === Number(modalData.edit.id)) {
+                return editedForm as education;
+              } else {
+                return edu;
+              }
+            }
+          );
+          setEducationHistory({ educationArray: newEducations });
+          break;
+        }
+        case "work": {
+          const newWorks = workHistory.workArray.map((work, i) => {
+            if (i === Number(modalData.edit.id)) {
+              return editedForm as work;
+            } else {
+              return work;
+            }
+          });
+          setWorkHistory({ workArray: newWorks });
+          break;
+        }
+      }
+    };
+
+    if ((e.target as Element).parentElement) {
+      const id = (e.target as Element).parentElement?.dataset.id as string;
+      const type = (e.target as Element).parentElement?.dataset.type as string;
+      switch (type) {
+        case "education":
+          setModalData({
+            edit: {
+              editMode: true,
+              type: type,
+              id: id,
+              item: educationHistory.educationArray[Number(id)],
+              saveFn: { submit: saveEvent },
+            },
+            title: `EDIT ${type.toUpperCase()}`,
+            body: "",
+          });
+          break;
+
+        case "work":
+          setModalData({
+            edit: {
+              editMode: true,
+              type: type,
+              id: id,
+              item: workHistory.workArray[Number(id)],
+              saveFn: { submit: saveEvent },
+            },
+            title: `EDIT ${type.toUpperCase()}`,
+            body: "",
+          });
+          break;
+      }
+
+      (document.querySelector("#modal") as HTMLDialogElement).showModal();
+    }
+  };
 
   const formAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
     {
@@ -56,6 +139,11 @@ export default function Main() {
         form.reset();
       } else {
         (document.querySelector("#modal") as HTMLDialogElement).showModal();
+        setModalData({
+          title: "ERROR",
+          body: "Remember to fill all fields",
+          edit: { editMode: false, type: "", id: "", item: {} },
+        });
       }
     }
   };
@@ -94,7 +182,11 @@ export default function Main() {
                   <div className="text-xl">
                     {edu.studyBegin}-{edu.studyEnd}
                   </div>
-                  <ResumeButtons id={String(eduID)}></ResumeButtons>
+                  <ResumeButtons
+                    type="education"
+                    id={String(eduID)}
+                    edit={editEvent}
+                    del={editEvent}></ResumeButtons>
                 </div>
               </div>
             );
@@ -114,13 +206,20 @@ export default function Main() {
                     <div className="text-xl">
                       {work.workBegin}-{work.workEnd}
                     </div>
-                    <ResumeButtons id={String(workID)}></ResumeButtons>
+                    <ResumeButtons
+                      type="work"
+                      id={String(workID)}
+                      edit={editEvent}
+                      del={editEvent}></ResumeButtons>
                   </div>
                 </div>
               </div>
             );
           })}></WorkInfo>
-        <Modal title={"Error"} body={"Don't leave any empty fields"}></Modal>
+        <Modal
+          title={modalData.title}
+          body={modalData.body}
+          edit={modalData.edit}></Modal>
       </div>
     </>
   );

@@ -18,7 +18,7 @@ export default function FormInput({
           id={`${name}Input`}
           name={name}
           className="select select-primary"
-          value={value}>
+          defaultValue={value}>
           {years}
         </select>
       </div>
@@ -32,7 +32,7 @@ export default function FormInput({
         onChange={updateFunction}
         type={type}
         name={name}
-        value={value}
+        defaultValue={value}
         className="input input-bordered input-primary rounded-lg"></input>
     </div>
   );

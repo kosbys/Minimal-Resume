@@ -1,10 +1,14 @@
 import { buttonProps } from "../../helpers/types";
 
-export default function ResumeButtons({ id }: buttonProps) {
+export default function ResumeButtons({ type, id, edit, del }: buttonProps) {
   return (
-    <div className="flex flex-row gap-4">
-      <button className="btn btn-sm btn-warning ">EDIT {id}</button>
-      <button className="btn btn-sm btn-error">DELETE</button>
+    <div className="flex flex-row gap-4" data-id={id} data-type={type}>
+      <button className="btn btn-sm btn-warning" onClick={edit}>
+        EDIT
+      </button>
+      <button className="btn btn-sm btn-error" onClick={del}>
+        DELETE
+      </button>
     </div>
   );
 }

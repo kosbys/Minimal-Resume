@@ -27,10 +27,15 @@ type formSubmit = {
 };
 
 type modalProps = {
+  edit: {
+    item: education | work;
+    editMode: boolean;
+    type: string;
+    id: string;
+    saveFn?: formSubmit;
+  };
   title: string;
   body: string;
-  editWork?: work;
-  editEducation?: education;
 };
 
 type InputProps = {
@@ -46,7 +51,10 @@ type elements = {
 };
 
 type buttonProps = {
+  type: string;
   id: string;
+  edit: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  del: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export type {
