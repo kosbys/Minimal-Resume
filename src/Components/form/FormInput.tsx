@@ -28,6 +28,7 @@ export default function FormInput({
     <div className="flex flex-col" id={`${name}Wrap`}>
       <label htmlFor={name}>{label}</label>
       <input
+        data-type={name}
         id={`${name}Input`}
         onChange={updateFunction}
         type={type}

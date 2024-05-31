@@ -20,11 +20,11 @@ export default function FormWork({ submit }: formSubmit) {
           type={"text"}
           label={"Description"}></FormInput>
         <FormInput
-          name={"workBegin"}
+          name={"dateBegin"}
           type={"date"}
           label={"Start Date"}></FormInput>
         <FormInput
-          name={"workEnd"}
+          name={"dateEnd"}
           type={"date"}
           label={"End Date"}></FormInput>
         <button className="btn btn-success" type="submit">

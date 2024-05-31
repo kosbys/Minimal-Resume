@@ -1,11 +1,18 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import FormEducation from "./form/FormEducation";
 import FormPersonal from "./form/FormPersonal";
 import FormWork from "./form/FormWork";
 import EducationInfo from "./resume/EducationInfo";
 import PersonalInfo from "./resume/PersonalInfo";
 import WorkInfo from "./resume/WorkInfo";
-import { person, education, work, modalProps } from "../helpers/types";
+import {
+  person,
+  education,
+  work,
+  modalProps,
+  resumeSection,
+} from "../helpers/types";
 import { validateForm } from "../helpers/helpers";
 import Modal from "./Modal";
 import ResumeButtons from "./resume/ResumeButtons";
@@ -22,12 +29,33 @@ export default function Main() {
     email: "johndoe@example.com",
     phone: "505-646-7077",
   });
-  const [modalData, setModalData] = useState({
+  const [modalData, setModalData] = useState<modalProps>({
     edit: { editMode: false, type: "", id: "", item: {} },
     title: "ERROR",
     body: "Remember to fill all fields",
-    saveFn: null,
   } as modalProps);
+
+  // IMPLEMENT
+  const deleteEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = (e.target as HTMLButtonElement).parentElement?.dataset.id;
+    switch ((e.target as HTMLButtonElement).parentElement?.dataset.type) {
+      case "education": {
+        const newEducations = educationHistory.educationArray.filter(
+          (_, i) => i != Number(id)
+        );
+        console.log(newEducations);
+        break;
+      }
+
+      case "work": {
+        const newWorks = workHistory.workArray.filter(
+          (_, i) => i != Number(id)
+        );
+        console.log(newWorks);
+        break;
+      }
+    }
+  };
 
   const editEvent = (e: React.MouseEvent<HTMLButtonElement>) => {
     const saveEvent = (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,14 +67,15 @@ export default function Main() {
       [...inputs].forEach((el: Element) => {
         if (el.children[1] as HTMLInputElement) {
           const input = el.children[1] as HTMLInputElement;
+          editedForm[input.name] = input.value;
         }
       });
 
-      switch (modalData.edit.type) {
+      switch (form.className) {
         case "education": {
           const newEducations = educationHistory.educationArray.map(
             (edu, i) => {
-              if (i === Number(modalData.edit.id)) {
+              if (i === Number(form.dataset.id)) {
                 return editedForm as education;
               } else {
                 return edu;
@@ -58,7 +87,7 @@ export default function Main() {
         }
         case "work": {
           const newWorks = workHistory.workArray.map((work, i) => {
-            if (i === Number(modalData.edit.id)) {
+            if (i === Number(form.dataset.id)) {
               return editedForm as work;
             } else {
               return work;
@@ -68,11 +97,19 @@ export default function Main() {
           break;
         }
       }
+
+      setModalData({
+        edit: { editMode: false, type: "", id: "", item: {} },
+        title: "ERROR",
+        body: "Remember to fill all fields",
+      });
+      (document.querySelector("#modal") as HTMLDialogElement).close();
     };
 
     if ((e.target as Element).parentElement) {
       const id = (e.target as Element).parentElement?.dataset.id as string;
       const type = (e.target as Element).parentElement?.dataset.type as string;
+
       switch (type) {
         case "education":
           setModalData({
@@ -108,43 +145,44 @@ export default function Main() {
   };
 
   const formAddEvent = (e: React.FormEvent<HTMLFormElement>) => {
-    {
-      e.preventDefault();
-      const form = e.target as HTMLFormElement;
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
 
-      const inputs = form.children;
-      const newEntry: Record<string, string> = {};
+    const inputs = form.children;
+    const newEntry: Record<string, string> = {};
 
-      [...inputs].forEach((element) => {
-        if (element.id != "") {
-          const entryField = element.id.replace("Wrap", "");
-          const input: HTMLInputElement | null = document.querySelector(
-            `#${element.id.replace("Wrap", "Input")}`
-          );
+    [...inputs].forEach((element) => {
+      if (element.id != "") {
+        const entryField = element.id.replace("Wrap", "");
+        const input: HTMLInputElement | null = document.querySelector(
+          `#${element.id.replace("Wrap", "Input")}`
+        );
 
-          newEntry[entryField] = input?.value || "";
-        }
-      });
+        newEntry[entryField] = input?.value || "";
+      }
+    });
+    newEntry["uuid"] = uuidv4();
 
-      if (validateForm(newEntry as work | education)) {
-        if (form.id === "educationForm") {
-          setEducationHistory({
-            educationArray: [...educationHistory.educationArray, newEntry],
-          });
-        } else if (form.id === "workForm") {
-          setWorkHistory({
-            workArray: [...workHistory.workArray, newEntry],
-          });
-        }
-        form.reset();
-      } else {
-        (document.querySelector("#modal") as HTMLDialogElement).showModal();
-        setModalData({
-          title: "ERROR",
-          body: "Remember to fill all fields",
-          edit: { editMode: false, type: "", id: "", item: {} },
+    const [success, errorString] = validateForm(newEntry as resumeSection);
+
+    if (success) {
+      if (form.id === "educationForm") {
+        setEducationHistory({
+          educationArray: [...educationHistory.educationArray, newEntry],
+        });
+      } else if (form.id === "workForm") {
+        setWorkHistory({
+          workArray: [...workHistory.workArray, newEntry],
         });
       }
+      form.reset();
+    } else {
+      (document.querySelector("#modal") as HTMLDialogElement).showModal();
+      setModalData({
+        title: "ERROR",
+        body: errorString,
+        edit: { editMode: false, type: "", id: "", item: {} },
+      });
     }
   };
 
@@ -170,47 +208,41 @@ export default function Main() {
           email={personData.email}
           phone={personData.phone}></PersonalInfo>
         <EducationInfo
-          list={educationHistory.educationArray?.map((edu, eduID) => {
+          list={educationHistory.educationArray?.map((edu) => {
             return (
-              <div
-                className="flex flex-col"
-                id={`educationN${eduID}`}
-                key={crypto.randomUUID()}>
+              <div className="flex flex-col" key={edu.uuid}>
                 <h1 className="text-3xl">{edu.schoolName}</h1>
                 <div className="flex justify-center gap-6">
                   <div className="text-xl">{edu.degree}</div>
                   <div className="text-xl">
-                    {edu.studyBegin}-{edu.studyEnd}
+                    {edu.dateBegin}-{edu.dateEnd}
                   </div>
                   <ResumeButtons
                     type="education"
-                    id={String(eduID)}
+                    id={edu.uuid ?? ""}
                     edit={editEvent}
-                    del={editEvent}></ResumeButtons>
+                    del={deleteEvent}></ResumeButtons>
                 </div>
               </div>
             );
           })}></EducationInfo>
         <WorkInfo
-          list={workHistory.workArray?.map((work, workID) => {
+          list={workHistory.workArray?.map((work) => {
             return (
-              <div
-                className="flex flex-col"
-                id={`workN${workID}`}
-                key={crypto.randomUUID()}>
+              <div className="flex flex-col" key={crypto.randomUUID()}>
                 <div className="flex flex-col">
                   <h1 className="text-3xl">{work.role}</h1>
                   <div className="flex justify-center gap-6">
                     <div className="text-xl">{work.companyName}</div>
                     <div className="text-xl">{work.description}</div>
                     <div className="text-xl">
-                      {work.workBegin}-{work.workEnd}
+                      {work.dateBegin}-{work.dateEnd}
                     </div>
                     <ResumeButtons
                       type="work"
-                      id={String(workID)}
+                      id={work.uuid ?? ""}
                       edit={editEvent}
-                      del={editEvent}></ResumeButtons>
+                      del={deleteEvent}></ResumeButtons>
                   </div>
                 </div>
               </div>

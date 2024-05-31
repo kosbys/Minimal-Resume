@@ -16,11 +16,11 @@ export default function FormEducation({ submit }: formSubmit) {
           label={"School Name"}></FormInput>
         <FormInput name={"degree"} type={"text"} label={"Degree"}></FormInput>
         <FormInput
-          name={"studyBegin"}
+          name={"dateBegin"}
           type={"date"}
           label={"Start Date"}></FormInput>
         <FormInput
-          name={"studyEnd"}
+          name={"dateEnd"}
           type={"date"}
           label={"End Date"}></FormInput>
         <button className="btn btn-success" type="submit">

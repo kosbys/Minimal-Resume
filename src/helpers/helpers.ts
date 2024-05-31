@@ -11,20 +11,25 @@ function changeData(
   setData({ ...data, [field]: e.target.value });
 }
 
-function validateForm(query: education | work): boolean {
-  const dates = ["studyBegin", "studyEnd", "workBegin", "workEnd"];
+function validateForm(query: education | work): [boolean, string] {
+  const dates = ["dateBegin", "dateEnd"];
   for (const [key, value] of Object.entries(query)) {
     if (value === "") {
-      return false;
+      return [false, "Remember to fill all fields."];
     }
+    console.log(query.dateBegin, query.dateEnd);
+
     if (dates.includes(key)) {
-      if (!dateRegex.test(value)) {
-        return false;
+      if (
+        !dateRegex.test(value) ||
+        Number(query.dateEnd) < Number(query.dateBegin)
+      ) {
+        return [false, "End date must be before the start date."];
       }
     }
   }
 
-  return true;
+  return [true, ""];
 }
 
 export { changeData, validateForm };

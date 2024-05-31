@@ -7,20 +7,22 @@ type person = {
   change?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-type education = {
-  schoolName?: string;
-  degree?: string;
-  studyBegin?: string;
-  studyEnd?: string;
+type resumeSection = {
+  dateBegin?: string;
+  dateEnd?: string;
+  uuid?: string;
 };
 
-type work = {
+interface education extends resumeSection {
+  schoolName?: string;
+  degree?: string;
+}
+
+interface work extends resumeSection {
   companyName?: string;
   role?: string;
   description?: string;
-  workBegin?: string;
-  workEnd?: string;
-};
+}
 
 type formSubmit = {
   submit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -66,4 +68,5 @@ export type {
   modalProps,
   elements,
   buttonProps,
+  resumeSection,
 };

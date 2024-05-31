@@ -10,7 +10,11 @@ export default function Modal({ edit, title, body }: modalProps) {
           <dialog id="modal" className="modal" itemID="modal">
             <div className="modal-box">
               <h3 className="font-bold text-lg">{title}</h3>
-              <form id="editForm" onSubmit={edit.saveFn?.submit}>
+              <form
+                data-id={edit.id}
+                id={"editForm"}
+                className={"education"}
+                onSubmit={edit.saveFn?.submit}>
                 <FormInput
                   name={"schoolName"}
                   type={"text"}
@@ -45,7 +49,11 @@ export default function Modal({ edit, title, body }: modalProps) {
           <dialog id="modal" className="modal" itemID="modal">
             <div className="modal-box">
               <h3 className="font-bold text-lg">{title}</h3>
-              <form>
+              <form
+                data-id={edit.id}
+                id="editForm"
+                className="work"
+                onSubmit={edit.saveFn?.submit}>
                 <FormInput
                   name={"companyName"}
                   type={"text"}
@@ -73,7 +81,7 @@ export default function Modal({ edit, title, body }: modalProps) {
                   label={"End Date"}
                   value={work.workEnd}></FormInput>
                 <div className="modal-action">
-                  <button className="btn btn-secondary">Close</button>
+                  <button className="btn btn-accent">Save</button>
                 </div>
               </form>
             </div>
