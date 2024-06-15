@@ -17,7 +17,6 @@ function validateForm(query: education | work): [boolean, string] {
     if (value === "") {
       return [false, "Remember to fill all fields."];
     }
-    console.log(query.dateBegin, query.dateEnd);
 
     if (dates.includes(key)) {
       if (

@@ -26,17 +26,19 @@ export default function Modal({ edit, title, body }: modalProps) {
                   label={"Degree"}
                   value={edu.degree}></FormInput>
                 <FormInput
-                  name={"studyBegin"}
+                  name={"dateBegin"}
                   type={"date"}
                   label={"Start Date"}
-                  value={edu.studyBegin}></FormInput>
+                  value={edu.dateBegin}></FormInput>
                 <FormInput
-                  name={"studyEnd"}
+                  name={"dateEnd"}
                   type={"date"}
                   label={"End Date"}
-                  value={edu.studyEnd}></FormInput>
+                  value={edu.dateEnd}></FormInput>
                 <div className="modal-action">
-                  <button className="btn btn-accent">Save</button>
+                  <button data-id={edit.id} className="btn btn-accent">
+                    Save
+                  </button>
                 </div>
               </form>
             </div>
@@ -71,15 +73,15 @@ export default function Modal({ edit, title, body }: modalProps) {
                   label={"Description"}
                   value={work.description}></FormInput>
                 <FormInput
-                  name={"workBegin"}
+                  name={"dateBegin"}
                   type={"date"}
                   label={"Start Date"}
-                  value={work.workBegin}></FormInput>
+                  value={work.dateBegin}></FormInput>
                 <FormInput
-                  name={"workEnd"}
+                  name={"dateEnd"}
                   type={"date"}
                   label={"End Date"}
-                  value={work.workEnd}></FormInput>
+                  value={work.dateEnd}></FormInput>
                 <div className="modal-action">
                   <button className="btn btn-accent">Save</button>
                 </div>

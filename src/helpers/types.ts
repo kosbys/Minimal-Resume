@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 type person = {
-  name: string;
+  personName: string;
   email: string;
   phone: string;
   change?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -40,12 +40,23 @@ type modalProps = {
   body: string;
 };
 
-type InputProps = {
+type formProps = {
+  person: person;
+  submit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
+
+type inputProps = {
   name: string;
   type: string;
   label: string;
   value?: string;
   updateFunction?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+type resumeProps = {
+  person: person;
+  educationElements: JSX.Element[];
+  workElements: JSX.Element[];
 };
 
 type elements = {
@@ -63,9 +74,11 @@ export type {
   person,
   education,
   work,
-  InputProps,
+  inputProps,
+  formProps,
   formSubmit,
   modalProps,
+  resumeProps,
   elements,
   buttonProps,
   resumeSection,

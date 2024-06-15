@@ -1,4 +1,4 @@
-import { InputProps } from "../../helpers/types";
+import { inputProps } from "../../helpers/types";
 import yearOptions from "../../helpers/yearOptions";
 
 export default function FormInput({
@@ -7,7 +7,7 @@ export default function FormInput({
   label,
   updateFunction,
   value,
-}: InputProps) {
+}: inputProps) {
   if (type === "date") {
     const years = yearOptions();
 

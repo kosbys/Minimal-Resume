@@ -3,7 +3,7 @@ import FormInput from "./FormInput";
 
 export default function FormEducation({ submit }: formSubmit) {
   return (
-    <div className="flex flex-col basis-1 grow justify-center items-center ">
+    <div className="flex flex-col basis-1 ">
       <h2 className="text-left">Education</h2>
       <form
         id="educationForm"
