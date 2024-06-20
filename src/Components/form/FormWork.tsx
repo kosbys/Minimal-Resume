@@ -7,10 +7,7 @@ export default function FormWork({ submit }: formSubmit) {
       id="workForm"
       onSubmit={submit}
       noValidate
-      className="flex justify-center items-center flex-col p-6 gap-2 bg-base-100 rounded-xl shadow-xl">
-      <div className="personal-info-title text-2xl text-secondary-content mb-1">
-        Work
-      </div>
+      className="flex justify-center items-center flex-col p-6 gap-2 bg-base-200">
       <FormInput
         name={"companyName"}
         type={"text"}

@@ -242,7 +242,7 @@ export default function Main() {
   personData.change = changePerson;
 
   return (
-    <div className="flex flex-row gap-4 mt-12 ml-96">
+    <>
       <Form person={personData} submit={formAddEvent}></Form>
       <Resume
         person={personData}
@@ -252,6 +252,6 @@ export default function Main() {
         title={modalData.title}
         body={modalData.body}
         edit={modalData.edit}></Modal>
-    </div>
+    </>
   );
 }

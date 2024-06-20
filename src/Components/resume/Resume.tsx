@@ -9,7 +9,7 @@ export default function Resume({
   workElements,
 }: resumeProps) {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col w-2/6 font-computerModern">
       <PersonalInfo
         personName={person.personName}
         email={person.email}

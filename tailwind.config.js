@@ -6,6 +6,7 @@ export default {
   theme: {
     fontFamily: {
       comfortaa: ["Comfortaa"],
+      computerModern: ["ComputerModern"],
     },
     extend: {},
   },

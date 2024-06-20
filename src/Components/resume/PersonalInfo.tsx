@@ -3,7 +3,7 @@ import { person } from "../../helpers/types";
 export default function PersonalInfo({ personName, email, phone }: person) {
   return (
     <div className="flex flex-col">
-      <h1 className="text-8xl" id="name_resume">
+      <h1 className="text-6xl text-center" id="name_resume">
         {personName}
       </h1>
       <div className="flex justify-center gap-6">

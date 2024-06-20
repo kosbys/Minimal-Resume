@@ -10,4 +10,15 @@
     font-display: swap;
     src: url(assets/fonts/Comfortaa-VariableFont_wght.ttf) format("woff2");
   }
+  @font-face {
+    font-family: "ComputerModern";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(assets/fonts/ComputerModern.ttf) format("woff2");
+  }
+}
+
+label {
+  user-select: none;
 }

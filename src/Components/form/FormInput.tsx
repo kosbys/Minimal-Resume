@@ -13,13 +13,15 @@ export default function FormInput({
 
     return (
       <div className="flex flex-col self-end" id={`${name}Wrap`}>
-        <label htmlFor={name} className="text-sm text-primary-content">
+        <label
+          htmlFor={name}
+          className="font-bold text-sm text-primary-content">
           {label}
         </label>
         <select
-          id={`${name}Input`}
+          id={name}
           name={name}
-          className="select select-primary text-base-content"
+          className="select select-primary select-sm text-base-content"
           defaultValue={value}>
           {years}
         </select>
@@ -28,17 +30,17 @@ export default function FormInput({
   }
   return (
     <div className="flex flex-col self-start w-full" id={`${name}Wrap`}>
-      <label htmlFor={name} className="text-sm text-primary-content">
+      <label htmlFor={name} className="font-bold text-sm text-primary-content">
         {label}
       </label>
       <input
         data-type={name}
-        id={`${name}Input`}
+        id={name}
         onChange={updateFunction}
         type={type}
         name={name}
         defaultValue={value}
-        className="input input-bordered input-primary rounded-lg text-base-content"></input>
+        className="input input-bordered input-sm input-primary rounded-lg text-base-content"></input>
     </div>
   );
 }
