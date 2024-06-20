@@ -162,13 +162,23 @@ export default function Main() {
       if (element.id != "") {
         const entryField = element.id.replace("Wrap", "");
         const input: HTMLInputElement | null = document.querySelector(
-          `#${element.id.replace("Wrap", "Input")}`
+          `#${element.id.replace("Wrap", "")}`
         );
 
         newEntry[entryField] = input?.value || "";
+      } else if (element.classList.contains("date-wrap")) {
+        console.log(element.children);
+
+        newEntry.dateBegin =
+          (element.children[0].querySelector(".select") as HTMLSelectElement)
+            .value || "";
+        newEntry.dateEnd =
+          (element.children[1].querySelector(".select") as HTMLSelectElement)
+            .value || "";
       }
     });
     newEntry["uuid"] = uuidv4();
+    console.log(newEntry);
 
     const [success, errorString] = validateForm(newEntry as resumeSection);
 

@@ -17,7 +17,7 @@ export default function FormWork({ submit }: formSubmit) {
         name={"description"}
         type={"text"}
         label={"Description"}></FormInput>
-      <div className="dates flex flex-row self-end gap-4 pt-2">
+      <div className="dates flex flex-row self-end gap-4 pt-2 date-wrap">
         <FormInput
           name={"dateBegin"}
           type={"date"}

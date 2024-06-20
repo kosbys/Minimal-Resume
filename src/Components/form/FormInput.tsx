@@ -19,7 +19,6 @@ export default function FormInput({
           {label}
         </label>
         <select
-          id={name}
           name={name}
           className="select select-primary select-sm text-base-content"
           defaultValue={value}>

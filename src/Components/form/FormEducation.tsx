@@ -13,7 +13,7 @@ export default function FormEducation({ submit }: formSubmit) {
         type={"text"}
         label={"School Name"}></FormInput>
       <FormInput name={"degree"} type={"text"} label={"Degree"}></FormInput>
-      <div className="dates flex flex-row self-end gap-4 pt-2">
+      <div className="dates flex flex-row self-end gap-4 pt-2 date-wrap">
         <FormInput
           name={"dateBegin"}
           type={"date"}
