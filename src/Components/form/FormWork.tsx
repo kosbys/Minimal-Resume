@@ -3,22 +3,24 @@ import FormInput from "./FormInput";
 
 export default function FormWork({ submit }: formSubmit) {
   return (
-    <div className="flex flex-col basis-1 ">
-      <h2 className="text-left">Work Experience</h2>
-      <form
-        id="workForm"
-        onSubmit={submit}
-        noValidate
-        className="flex flex-col justify-center items-center gap-2">
-        <FormInput
-          name={"companyName"}
-          type={"text"}
-          label={"Company Name"}></FormInput>
-        <FormInput name={"role"} type={"text"} label={"Role"}></FormInput>
-        <FormInput
-          name={"description"}
-          type={"text"}
-          label={"Description"}></FormInput>
+    <form
+      id="workForm"
+      onSubmit={submit}
+      noValidate
+      className="flex justify-center items-center flex-col p-6 gap-2 bg-base-100 rounded-xl shadow-xl">
+      <div className="personal-info-title text-2xl text-secondary-content mb-1">
+        Work
+      </div>
+      <FormInput
+        name={"companyName"}
+        type={"text"}
+        label={"Company Name"}></FormInput>
+      <FormInput name={"role"} type={"text"} label={"Role"}></FormInput>
+      <FormInput
+        name={"description"}
+        type={"text"}
+        label={"Description"}></FormInput>
+      <div className="dates flex flex-row self-end gap-4 pt-2">
         <FormInput
           name={"dateBegin"}
           type={"date"}
@@ -27,10 +29,10 @@ export default function FormWork({ submit }: formSubmit) {
           name={"dateEnd"}
           type={"date"}
           label={"End Date"}></FormInput>
-        <button className="btn btn-success" type="submit">
-          Add
-        </button>
-      </form>
-    </div>
+      </div>
+      <button className="btn btn-success self-end mt-2" type="submit">
+        Add
+      </button>
+    </form>
   );
 }
