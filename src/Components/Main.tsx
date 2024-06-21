@@ -167,8 +167,6 @@ export default function Main() {
 
         newEntry[entryField] = input?.value || "";
       } else if (element.classList.contains("date-wrap")) {
-        console.log(element.children);
-
         newEntry.dateBegin =
           (element.children[0].querySelector(".select") as HTMLSelectElement)
             .value || "";
@@ -178,7 +176,6 @@ export default function Main() {
       }
     });
     newEntry["uuid"] = uuidv4();
-    console.log(newEntry);
 
     const [success, errorString] = validateForm(newEntry as resumeSection);
 
@@ -210,41 +207,41 @@ export default function Main() {
 
   const educationElements = educationHistory.educationArray?.map((edu) => {
     return (
-      <div className="flex flex-col" key={edu.uuid}>
-        <h1 className="text-3xl">{edu.schoolName}</h1>
-        <div className="flex justify-center gap-6">
-          <div className="text-xl">{edu.degree}</div>
+      <div className="ml-4 mt-2 flex flex-col resume-item" key={edu.uuid}>
+        <h1 className="text-3xl font-bold">{edu.schoolName}</h1>
+        <div className="flex justify-between gap-6">
+          <div className="text-lg">{edu.degree}</div>
           <div className="text-xl">
             {edu.dateBegin}-{edu.dateEnd}
           </div>
-          <ResumeButtons
-            type="education"
-            id={edu.uuid ?? ""}
-            edit={editEvent}
-            del={deleteEvent}></ResumeButtons>
         </div>
+        <ResumeButtons
+          type="education"
+          id={edu.uuid ?? ""}
+          edit={editEvent}
+          del={deleteEvent}></ResumeButtons>
       </div>
     );
   });
 
   const workElements = workHistory.workArray?.map((work) => {
     return (
-      <div className="flex flex-col" key={crypto.randomUUID()}>
-        <div className="flex flex-col">
-          <h1 className="text-3xl">{work.role}</h1>
-          <div className="flex justify-center gap-6">
-            <div className="text-xl">{work.companyName}</div>
-            <div className="text-xl">{work.description}</div>
-            <div className="text-xl">
-              {work.dateBegin}-{work.dateEnd}
-            </div>
-            <ResumeButtons
-              type="work"
-              id={work.uuid ?? ""}
-              edit={editEvent}
-              del={deleteEvent}></ResumeButtons>
+      <div className="ml-4 mt-2 flex flex-col resume-item" key={work.uuid}>
+        <h1 className="text-3xl font-bold">{work.companyName}</h1>
+        <div className="flex justify-between gap-6">
+          <div className="flex flex-col">
+            <div className="text-lg">{work.role}</div>
+            <div className="text-md">{work.description}</div>
+          </div>
+          <div className="text-xl">
+            {work.dateBegin}-{work.dateEnd}
           </div>
         </div>
+        <ResumeButtons
+          type="work"
+          id={work.uuid ?? ""}
+          edit={editEvent}
+          del={deleteEvent}></ResumeButtons>
       </div>
     );
   });

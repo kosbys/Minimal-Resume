@@ -22,3 +22,7 @@
 label {
   user-select: none;
 }
+
+.resume-item:hover .resume-buttons {
+  visibility: visible;
+}
